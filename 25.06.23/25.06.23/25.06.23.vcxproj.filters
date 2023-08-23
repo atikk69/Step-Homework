@@ -15,44 +15,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="23.07.23.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="file.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="newUser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="23.07.23.cpp">
+    <ClCompile Include="25.06.23.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="newUser.cpp">
+    <ClCompile Include="ForeignPassport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Passport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Structs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Student.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="23.07.23.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="23.07.23.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="ForeignPassport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Passport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aspirant.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bicycle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Transport.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Car.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Carriage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

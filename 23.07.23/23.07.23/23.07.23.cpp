@@ -1,180 +1,198 @@
-// 23.07.23.cpp : Defines the entry point for the application.
-//
+#include"file.h"
+#include <regex>
+#include <Windows.h>
 
-#include "framework.h"
-#include "23.07.23.h"
-
-#define MAX_LOADSTRING 100
-
-// Global Variables:
-HINSTANCE hInst;                                // current instance
-WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
-WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
-
-// Forward declarations of functions included in this code module:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
-LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+void getClick(int& x, int& y)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+	HANDLE hConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+	INPUT_RECORD inputRec;
+	DWORD events;
+	COORD coord;
+	bool clicked = false;
 
-    // TODO: Place code here.
+	DWORD fdwMode = ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
+	SetConsoleMode(hConsoleIn, fdwMode);
 
-    // Initialize global strings
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_MY230723, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
+	while (!clicked) {
 
-    // Perform application initialization:
-    if (!InitInstance (hInstance, nCmdShow))
-    {
-        return FALSE;
-    }
+		ReadConsoleInput(hConsoleIn, &inputRec, 1, &events);
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY230723));
+		if (inputRec.EventType == MOUSE_EVENT) {
+			if (inputRec.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+				coord = inputRec.Event.MouseEvent.dwMousePosition;
+				x = coord.X;
+				y = coord.Y;
+				clicked = true;
+			}
+		}
+		if (GetAsyncKeyState(VK_ESCAPE)) {
+			break;
+		}
+	}
+}
 
-    MSG msg;
+std::string getKeyBoard()
+{
+	HANDLE hConsoleIn = GetStdHandle(STD_INPUT_HANDLE);
+	INPUT_RECORD inputRec{};
+	DWORD events{};
+	COORD coord{};
+	bool clicked = false;
 
-    // Main message loop:
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-    }
+	DWORD fdwMode = ENABLE_EXTENDED_FLAGS | ENABLE_WINDOW_INPUT | ENABLE_MOUSE_INPUT;
+	SetConsoleMode(hConsoleIn, fdwMode);
 
-    return (int) msg.wParam;
+	std::string numToString{};
+
+	while (true) {
+		ReadConsoleInput(hConsoleIn, &inputRec, 1, &events);
+
+		if (inputRec.EventType == KEY_EVENT && inputRec.Event.KeyEvent.bKeyDown) {
+			if (inputRec.Event.KeyEvent.wVirtualKeyCode == VK_RETURN) {
+				break;
+			}
+			else if (inputRec.Event.KeyEvent.wVirtualKeyCode == VK_BACK) {
+				if (!numToString.empty()) {
+					numToString.pop_back();
+					std::cout << "\b \b";
+				}
+			}
+			else if (inputRec.Event.KeyEvent.uChar.AsciiChar >= 32 && inputRec.Event.KeyEvent.uChar.AsciiChar <= 126) {
+				std::cout << inputRec.Event.KeyEvent.uChar.AsciiChar;
+				numToString += inputRec.Event.KeyEvent.uChar.AsciiChar;
+			}
+		}
+	}
+
+	return numToString;
+}
+
+User registration()
+{
+	std::string name{};
+	std::string surname{};
+	std::string email{};
+	std::string password{};
+	std::string phone{};
+
+	std::regex regexNameAndSurname("[a-zA-Z]{3,20}");
+	std::regex emailRegex(R"(([a-zA-Z0-9](\.|_)?)+([a-zA-Z0-9])+@([a-zA-Z0-9])+((\.)[a-zA-Z]{2,})+)");
+	std::regex regexPassword("[a-zA-Z0-9.]{8,20}");
+	std::regex phoneRegex("^[+]994[0-9]{9}$");
+
+	std::cout << "Enter your name: "; name = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(name, regexNameAndSurname)) {
+		throw std::invalid_argument("Invalid name!");
+	}
+
+	std::cout << "Enter your surname: "; surname = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(surname, regexNameAndSurname)) {
+		throw std::invalid_argument("Invalid surname!");
+	}
+
+	std::cout << "Enter your email: "; email = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(email, emailRegex)) {
+		throw std::invalid_argument("Invalid email!");
+	}
+
+	std::cout << "Enter your password: "; password = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(password, regexPassword)) {
+		throw std::invalid_argument("Invalid password!");
+	}
+
+	std::cout << "Enter your phone: "; phone = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(phone, phoneRegex)) {
+		throw std::invalid_argument("Invalid phone!");
+	}
+
+	User u(name, surname, email, password, phone);
+
+	return u;
+}
+
+bool login(User* users, uint16_t usersCount)
+{
+	std::string email{};
+	std::string password{};
+
+	std::regex emailRegex(R"(([a-zA-Z0-9](\.|_)?)+([a-zA-Z0-9])+@([a-zA-Z0-9])+((\.)[a-zA-Z]{2,})+)");
+	std::regex regexPassword("[a-zA-Z0-9.]{8,20}");
+
+	std::cout << "Enter your email: "; email = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(email, emailRegex)) {
+		throw std::invalid_argument("Invalid email!");
+	}
+
+	std::cout << "Enter your password: "; password = getKeyBoard(); std::cout << '\n';
+	if (!regex_match(password, regexPassword)) {
+		throw std::invalid_argument("Invalid password!");
+	}
+
+	for (size_t i = 0; i < usersCount; i++)
+	{
+		if (users[i].getEmail() == email)
+		{
+			if (users[i].getPassword() == password)
+				return true;
+		}
+		else
+			throw std::invalid_argument("Invalid Password or Email");
+	}
 }
 
 
-
-//
-//  FUNCTION: MyRegisterClass()
-//
-//  PURPOSE: Registers the window class.
-//
-ATOM MyRegisterClass(HINSTANCE hInstance)
+int main()
 {
-    WNDCLASSEXW wcex;
+	User* users = new User[100]{};
+	uint16_t usersCount{};
+	file::loadnames(users, usersCount);
+	int x{}, y{};
 
-    wcex.cbSize = sizeof(WNDCLASSEX);
+	while (true)
+	{
+		std::cout << "\t\t\t\t\t\tWelcome!" << std::endl;
+		std::cout << "\t\t\t\tSign up\t\t\t\t\tLogin" << std::endl;
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
-    wcex.cbClsExtra     = 0;
-    wcex.cbWndExtra     = 0;
-    wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY230723));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MY230723);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+		while (y != 1 or x < 32 or x > 38 and x < 72 or x > 76)
+			getClick(x, y);
 
-    return RegisterClassExW(&wcex);
-}
+		if (x >= 32 and x <= 38)
+		{
+			bool regComplated = true;
+			while (regComplated)
+			{
+				try {
+					users[usersCount] = registration();
+				}
+				catch (std::exception& e) {
+					std::cout << e.what() << std::endl;
+					continue;
+				}
+				file::savetoFile(users, usersCount);
+				regComplated = false;
+				usersCount++;
+			}
+		}
+		else
+		{
+			bool regComplated = true;
+			while (regComplated)
+			{
+				try {
+					login(users, usersCount);
+				}
+				catch (std::exception& e) {
+					std::cout << e.what() << std::endl;
+					continue;
+				}
+				std::cout << "Login Complated!";
+				regComplated = false;
+				Sleep(3000);
+			}
+		}
+		system("cls");
+		x = 0, y = 0;
+	}
 
-//
-//   FUNCTION: InitInstance(HINSTANCE, int)
-//
-//   PURPOSE: Saves instance handle and creates main window
-//
-//   COMMENTS:
-//
-//        In this function, we save the instance handle in a global variable and
-//        create and display the main program window.
-//
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
-{
-   hInst = hInstance; // Store instance handle in our global variable
-
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-
-   if (!hWnd)
-   {
-      return FALSE;
-   }
-
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   return TRUE;
-}
-
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE: Processes messages for the main window.
-//
-//  WM_COMMAND  - process the application menu
-//  WM_PAINT    - Paint the main window
-//  WM_DESTROY  - post a quit message and return
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    switch (message)
-    {
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Parse the menu selections:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Add any drawing code that uses hdc here...
-            EndPaint(hWnd, &ps);
-        }
-        break;
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
-}
-
-// Message handler for about box.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
+	return 0;
 }
