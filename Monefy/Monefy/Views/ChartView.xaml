@@ -1,0 +1,236 @@
+﻿<UserControl x:Class="Monefy.Views.UserControl1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:Monefy" 
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+             xmlns:viewmodels="clr-namespace:Monefy.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:UserControl1ViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="380"  >
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="WindowBackgroundBrush" StartPoint="0,0" EndPoint="1,6">
+            <GradientStop Color="#2e4478" Offset="0.0"/>
+            <GradientStop Color="White" Offset="1.0"/>
+        </LinearGradientBrush>
+    </UserControl.Resources>
+
+    <UserControl.Background>
+        <StaticResource ResourceKey="WindowBackgroundBrush"/>
+    </UserControl.Background>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions >
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="Black" Margin="0 0 0 55">
+            <Label Content="MyMonefy" FontSize="18" FontFamily="Comic Sans MS" Foreground="White"  />
+        </StackPanel>
+
+        <TextBlock
+            Grid.Column="1"
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Margin="21 30 0 0"
+            Foreground="Black"
+            Height="30"
+            Width="160"
+            FontSize="24"
+            Text="{Binding CurrentChart.Date, StringFormat='dd-MM-yyyy'}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+        </TextBlock>
+
+
+        <Button Grid.Column="0"  BorderThickness="0" Margin="0 17 11 0" Grid.Row="0" Width="70" Height="60"  Background="Transparent" Command="{Binding Yesterday}">
+            <materialDesign:PackIcon 
+                Kind="ArrowBack"
+                Foreground="Green"
+                Width="40" 
+                Height="44" 
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Center" />
+        </Button>
+
+        <Button Grid.Column="3"  BorderThickness="0" Margin="11 17 0 0" Grid.Row="0" Width="70" Height="60"  Background="Transparent" Command="{Binding Tomorrow}">
+            <materialDesign:PackIcon 
+             Kind="ArrowRight"
+             Foreground="Green"
+             Width="40" 
+             Height="44" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" />
+        </Button>
+
+
+        <Button Grid.Column="0"  BorderThickness="0" Grid.Row="1" Width="70" Height="60"  Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Shop"
+                    Foreground="Green"
+                    Width="40" 
+                    Height="44" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+
+        <Button Grid.Column="0"  BorderThickness="0" Grid.Row="2" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Pets" 
+                    Foreground="DarkOrchid"
+                   Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="0"  BorderThickness="0" Grid.Row="3" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Car"
+                    Foreground="DimGray"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="0"  BorderThickness="0" Grid.Row="4" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="ClothesHanger" 
+                    Foreground="LightGreen"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="0"  BorderThickness="0" Grid.Row="5" Width="70" Height="60" Background="Transparent" Command="{Binding Add}"  CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="HealthPotion" 
+                    Foreground="DarkRed"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="3"  BorderThickness="0" Grid.Row="1" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="OralHygiene" 
+                    Foreground="LightSalmon"
+                    Width="40" 
+                    Height="44" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="3"  BorderThickness="0" Grid.Row="2" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="PartyBalloon" 
+                    Foreground="LightBlue"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="3"  BorderThickness="0" Grid.Row="3" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Phone" 
+                    Foreground="Brown"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="3"  BorderThickness="0" Grid.Row="4" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Food" 
+                    Foreground="DarkOrchid"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="3"  BorderThickness="0" Grid.Row="5" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Present" 
+                    Foreground="Violet"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="1"  BorderThickness="0" Grid.Row="1" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Gym" 
+                    Foreground="Red"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="2"  BorderThickness="0" Grid.Row="1" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Travel" 
+                    Foreground="Orange"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+
+        <Button Grid.Column="1"  BorderThickness="0" Grid.Row="5" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="Lightbulb" 
+                    Foreground="Yellow"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+        <Button Grid.Column="2" BorderThickness="0" Grid.Row="5" Width="70" Height="60" Background="Transparent" Command="{Binding Add}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+            <materialDesign:PackIcon 
+                    Kind="School" 
+                    Foreground="Black"
+                    Width="40" 
+                    Height="44"
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" />
+        </Button>
+
+        <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Width="190" Height="87" Background="Transparent"  Command="{Binding Minus}" >
+            <materialDesign:PackIcon 
+                    Kind="Minus" 
+                    Foreground="Red"
+                    Width="40" 
+                    Height="40" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" />
+        </Button>
+
+        <Button Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2" Width="190" Height="87" Background="Transparent"  >
+            <materialDesign:PackIcon 
+                    Kind="Plus" 
+                    Foreground="DarkViolet"
+                    Width="40" 
+                    Height="40" 
+                
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" />
+        </Button>
+
+        <Wpf:PieChart  IsEnabled="False" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="2" Content="{Binding CurrentChart.Chart, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>
