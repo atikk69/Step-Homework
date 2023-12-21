@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
 using GalaSoft.MvvmLight.Messaging;
 using Monefy.Messages;
+using System;
 
 namespace Monefy.ViewModels
 {
@@ -151,15 +152,16 @@ namespace Monefy.ViewModels
                 Balance = double.Parse(new System.Data.DataTable().Compute(Expression.ToString(), null).ToString());
 
                 _dataService.SendData(Balance);
-                PackIcon _packIcon = MyButton.Content as PackIcon;
-                if (_packIcon != null)
+                try
                 {
+                    PackIcon _packIcon = MyButton.Content as PackIcon;
                     _chartService.AddSerie(Chart, _packIcon.Foreground);
                     _navigationService.NavigateTo<UserControl1ViewModel>();
                     Expression.Clear();
                     ExpressionText = "";
+                    MyButton = null;
                 }
-                else
+                catch(Exception ex)
                 {
                     _navigationService.NavigateTo<CategoriesViewModel>();
                 }

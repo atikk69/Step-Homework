@@ -93,9 +93,8 @@ namespace Monefy.ViewModels;
         public RelayCommand<Button> Minus
         { get => new(button =>
           {
-              _navigationService.NavigateTo<CalculatorViewModel>();
-                
 
+              _navigationService.NavigateTo<CalculatorViewModel>();               
           });
 
         }
