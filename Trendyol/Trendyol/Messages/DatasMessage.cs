@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Monefy.Messages
+namespace Trendyol.Messages
 {
-    class Sender
+    internal class DatasMessage
     {
+        public object[] Datas { get; set; }
     }
 }

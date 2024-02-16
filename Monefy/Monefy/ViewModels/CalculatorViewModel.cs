@@ -107,6 +107,7 @@ namespace Monefy.ViewModels
                 }
             });
         }
+       
         public RelayCommand Back
         {
             get => new(() =>
