@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Trendyol.Views.AdminMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Trendyol.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="700">
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="3" Grid.Column="1" TextAlignment="Center" FontSize="30" Text="Admin Menu"/>
+        <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10" Grid.Row="0" Width="120" Height="50" Content="NextLevel" Command="{Binding ToAdmin}" FontSize="20" />
+        <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" BorderThickness="2" HorizontalAlignment="Right" Height="227" Margin="0 0 10 0" Width="411" VerticalAlignment="Center" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Grid.RowSpan="2">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="1" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="20">
+                        <Grid>
+                            <StackPanel Width="260" Height="100">
+                                <TextBlock Text="{Binding Id}" FontWeight="Bold" Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding Products.Name }" Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding Users.Email }" Margin="5,0,0,0" />
+
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Column="4" Width="75" Height="50" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Content ="Exit" FontSize="25" Foreground="White"  Command="{Binding Exit }" />
+
+
+    </Grid>
+</UserControl>
