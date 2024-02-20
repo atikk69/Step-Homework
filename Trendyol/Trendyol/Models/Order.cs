@@ -9,8 +9,8 @@ using Trendyol.Views;
 
 namespace Trendyol.Models
 {
-      class Order
-     {
+      public class Order
+      {
         [Key]
         public int Id { get; set; }
         [Required,ForeignKey("Users")]
@@ -20,10 +20,10 @@ namespace Trendyol.Models
         [Required]
         public int ProductsCount { get; set; }
         [Required]
-        public int Status { get; set; }
+        public string Status { get; set; }
         [Required]
         public float TotalPrice { get; set; }
         public User Users { get; set; }
         public Product Products { get; set; }
-     }
+      }
 }

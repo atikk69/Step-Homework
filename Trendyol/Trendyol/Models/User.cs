@@ -21,7 +21,7 @@ namespace Trendyol.Models
         [Required]
         public string Password { get; set; }
 
-        [Required, DefaultValue("User")]
+        [Required]
         public string Membership { get; set; }
     }
 }

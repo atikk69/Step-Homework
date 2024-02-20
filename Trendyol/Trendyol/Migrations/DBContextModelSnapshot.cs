@@ -35,8 +35,9 @@ namespace Trendyol.Migrations
                     b.Property<int>("ProductsCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TotalPrice")
                         .HasColumnType("real");
@@ -45,6 +46,10 @@ namespace Trendyol.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -127,6 +132,25 @@ namespace Trendyol.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Warehouse");
+                });
+
+            modelBuilder.Entity("Trendyol.Models.Order", b =>
+                {
+                    b.HasOne("Trendyol.Models.Product", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trendyol.Models.User", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Products");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

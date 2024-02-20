@@ -13,16 +13,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-            <Border Background="#FF2E8B57" Padding="10" Width="730" HorizontalAlignment="Left">
-                <StackPanel Width="500" HorizontalAlignment="Left">
-                    <TextBlock Text="{Binding CurrentUser.Name}" FontSize="20" HorizontalAlignment="Left" Width="400" FontWeight="Bold" Foreground="White"/>
-                    <TextBlock Text="{Binding CurrentUser.Email}" FontSize="14" HorizontalAlignment="Left" Width="400" Foreground="White"/>
-                </StackPanel>
-            </Border>
+        <Border Background="#FF2E8B57" Padding="10" Width="730" HorizontalAlignment="Left">
+            <StackPanel Width="500" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding CurrentUser.Name}" FontSize="20" HorizontalAlignment="Left" Width="400" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="{Binding CurrentUser.Email}" FontSize="14" HorizontalAlignment="Left" Width="400" Foreground="White"/>
+            </StackPanel>
+        </Border>
 
         <Button Background="Red" Content="⇐" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="40" Height="65" Width="70" HorizontalAlignment="Right" Command="{Binding ToGoodsPage }"/>
 
-
+        <TextBlock Text="OrderHistory" TextAlignment="Center" FontSize="30" HorizontalAlignment="Right" Margin="0,65,10,350" Grid.RowSpan="2" Width="461"/>
 
 
 
@@ -41,11 +41,11 @@
                     <TextBlock Text="Email:" FontWeight="Bold" Width="80"/>
                     <TextBlock Text="{Binding CurrentUser.Email}" />
                 </StackPanel>
-                
+
             </StackPanel>
-            
+
         </Border>
-        <ListBox BorderThickness="2" HorizontalAlignment="Right" Height="367" Margin="0 0 10 0" Width="461"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Grid.RowSpan="2">
+        <ListBox BorderThickness="2" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="327" Margin="0 0 10 11" Width="461"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Grid.RowSpan="2">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="1" />
@@ -58,8 +58,10 @@
                             <StackPanel Width="470" Height="100">
                                 <TextBlock Text="{Binding Id}" FontWeight="Bold" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding Products.Name }" Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding ProductsCount }" Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding TotalPrice }" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding Users.Email }" Margin="5,0,0,0" />
-                                
+
                             </StackPanel>
                         </Grid>
                     </Border>

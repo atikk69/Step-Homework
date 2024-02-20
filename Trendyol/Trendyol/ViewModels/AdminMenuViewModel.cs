@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Trendyol.Models;
 using Trendyol.Services.Interfaces;
 
@@ -20,6 +21,8 @@ namespace Trendyol.ViewModels
         private readonly IDataService _dataService;
         public DBContext _dbContext;
         public Order _selectedOrder;
+        public List<string> Statuses = ["Order confirmed", "Received at the warehouse", "Shipped", "Under customs inspection", "At the post office"];
+        public int StatusIndex = 0;
         public ObservableCollection<Order> orders;
 
         public ObservableCollection<Order> Orders
@@ -54,9 +57,22 @@ namespace Trendyol.ViewModels
                 });
         }
 
-
-
-
+        public RelayCommand NextLevel
+        {
+            get => new(
+                () =>
+                {
+                    if (SelectedOrder != null)
+                    {
+                        StatusIndex += 1;
+                        SelectedOrder.Status = Statuses[StatusIndex];
+                        _dbContext.SaveChanges();
+                        MessageBox.Show("Status Leveled up!");
+                    }
+                    else
+                        MessageBox.Show("Please select order!");
+                });
+        }
 
     }
 }

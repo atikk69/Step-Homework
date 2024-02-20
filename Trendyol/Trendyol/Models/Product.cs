@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Trendyol.Models
 {
-    class Product
+    public class Product
     {
         [Key]
         public int Id { get; set; }

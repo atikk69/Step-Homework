@@ -28,17 +28,17 @@
         <Button Grid.Column="4" Grid.Row="1" Width="120" Height="60" Content="ToAdmin" Command="{Binding ToAdmin}" FontSize="20" />
         <Button Grid.Column="4" Grid.Row="2" Width="120" Height="60" Content="ToUser" Command="{Binding ToUser}" FontSize="20" />
 
-        <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" HorizontalContentAlignment="Stretch" Margin="0,3,0,136" Grid.RowSpan="3">
+        <ListBox Width="290" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1" Grid.ColumnSpan="3" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" HorizontalContentAlignment="Stretch" Margin="0,4,0,24" Grid.RowSpan="2" HorizontalAlignment="Left">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Vertical"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                    <Border Width="280" BorderBrush="Black" BorderThickness="1" Margin="5">
                         <Grid>
-                            <StackPanel Height="60" Width="210">
+                            <StackPanel Height="60" Width="200">
                                 <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5,0,0,0"/>
                                 <TextBlock Text="{Binding Email}" Margin="5,0,0,0"/>
                                 <TextBlock Text="{Binding Membership}" Margin="5,0,0,0"/>

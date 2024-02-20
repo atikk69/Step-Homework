@@ -34,6 +34,7 @@ namespace Trendyol
             Container.RegisterSingleton<GoodsPageViewModel>();
             Container.RegisterSingleton<OrderPageViewModel>();
             Container.RegisterSingleton<SuperAdminMenuViewModel>();
+            Container.RegisterSingleton<AdminMenuViewModel>();
             Container.RegisterSingleton<DBContext>();
 
             Container.Verify();

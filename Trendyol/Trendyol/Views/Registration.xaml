@@ -46,7 +46,8 @@
 
             <!-- Footer Section -->
             <TextBlock HorizontalAlignment="Center" Foreground="Gray">
-                © 2024 Your Company. All rights reserved.
+                © 2024 Your Company. All rights reserved.Translated by 
+                                                                       ©Emin Muradov
             </TextBlock>
         </StackPanel>
     </Grid>

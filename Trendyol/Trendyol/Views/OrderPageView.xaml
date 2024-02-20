@@ -20,7 +20,7 @@
 
         <Button Grid.Row="1" Content="-" FontSize="40" HorizontalAlignment="Left" Command="{Binding RemoveProduct}" Margin="30 0 0 0" Width="100" />
         <Button Grid.Row="1" Content="+" FontSize="40" HorizontalAlignment="Right" Command="{Binding AddProduct}" Margin="0 0 30 0" Width="100" />
-        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Width="80" TextAlignment="Center" Text="{Binding ProductCount }"  />
+        <TextBlock Grid.Row="1" FontSize="30" HorizontalAlignment="Center" Width="80" TextAlignment="Center" Text="{Binding ProductCount }"  />
 
         <Button Grid.Column="1"  Grid.Row="1" Width="200" Background="Green" Command="{Binding Buy}" Content="Buy" FontSize="37"  />
         <Button>

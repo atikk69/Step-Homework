@@ -62,14 +62,23 @@ class SuperAdminMenuViewModel : ViewModelBase
         get => new(
             () =>
             {
-                if (SelectedUser.Membership == "User")
+                if (SelectedUser != null)
                 {
-                    SelectedUser.Membership = "Admin";
-                    _dbContext.SaveChanges();
-                    MessageBox.Show("Sucsessfully switched to admin");
+                    if (SelectedUser.Membership == "User")
+                    {
+                        SelectedUser.Membership = "Admin";
+                        _dbContext.SaveChanges();
+                        MessageBox.Show("Sucsessfully switched to admin");
+                    }
+                    else if (SelectedUser.Membership == "SuperAdmin")
+                    {
+                        MessageBox.Show("You can't change the role of SuperAdmin");
+                    }
+                    else
+                        MessageBox.Show("An error was occured.This member already is admin");
                 }
                 else
-                    MessageBox.Show("An error was occured.This member already is admin");
+                    MessageBox.Show("Please select user");
             });
     }
     public RelayCommand ToUser
@@ -77,14 +86,24 @@ class SuperAdminMenuViewModel : ViewModelBase
         get => new(
             () =>
             {
-                if (SelectedUser.Membership == "Admin")
+                if (SelectedUser != null)
                 {
-                    SelectedUser.Membership = "User";
-                    _dbContext.SaveChanges();
-                    MessageBox.Show("Sucsessfully switched to user");
+                    if (SelectedUser.Membership == "Admin")
+                    {
+                        SelectedUser.Membership = "User";
+                        _dbContext.SaveChanges();
+                        MessageBox.Show("Sucsessfully switched to user");
+                    }
+                    else if (SelectedUser.Membership == "SuperAdmin")
+                    {
+                        MessageBox.Show("You can't change the role of SuperAdmin");
+                    }
+                    else
+                        MessageBox.Show("An error was occured.This member already is user");
                 }
                 else
-                    MessageBox.Show("An error was occured.This member already is user");
+                    MessageBox.Show("Please select user");
+
             });
     
         

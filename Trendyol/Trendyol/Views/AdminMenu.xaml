@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Trendyol.Views"
+             xmlns:local="clr-namespace:Trendyol.Views" xmlns:viewmodels="clr-namespace:Trendyol.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AdminMenuViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="700">
     <Grid Background="White">
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.ColumnSpan="3" Grid.Column="1" TextAlignment="Center" FontSize="30" Text="Admin Menu"/>
-        <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10" Grid.Row="0" Width="120" Height="50" Content="NextLevel" Command="{Binding ToAdmin}" FontSize="20" />
+        <Button Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 10" Grid.Row="0" Width="120" Height="50" Content="NextLevel" Command="{Binding NextLevel}" FontSize="20" />
         <ListBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" BorderThickness="2" HorizontalAlignment="Right" Height="227" Margin="0 0 10 0" Width="411" VerticalAlignment="Center" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" Grid.RowSpan="2">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -38,6 +38,7 @@
                                 <TextBlock Text="{Binding Id}" FontWeight="Bold" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding Products.Name }" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding Users.Email }" Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding Status }" Margin="5,0,0,0" />
 
                             </StackPanel>
                         </Grid>

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace Trendyol.ViewModels
         public DBContext _dbContext;
         public Product _selectedProduct;
         public User _currentUser;
+        public List<string> Statuses = ["Order confirmed", "Received at the warehouse", "Shipped", "Under customs inspection", "At the post office"];
         public int _productCount = 0;
         public int ProductCount
         {
@@ -65,7 +67,6 @@ namespace Trendyol.ViewModels
                 if (message.Data as User != null)
                 {
                     CurrentUser = message.Data as User;
-
                 }
             });
         }
@@ -76,18 +77,25 @@ namespace Trendyol.ViewModels
             get => new(
                 () =>
                 {
-                    Order newOrder = new()
+                    if (ProductCount > 0)
                     {
-                        UserId = CurrentUser.Id,
-                        ProductId = SelectedProduct.Id,
-                        Status = 1,
-                        TotalPrice = SelectedProduct.Price
-                    };
-                    _dbContext = new();
-                    _dbContext.Orders.Add(newOrder);
-                    _dbContext.SaveChanges();
-                    MessageBox.Show("Sucsessfully bought!");
-                    _navigationService.NavigateTo<GoodsPageViewModel>();
+                        Order newOrder = new()
+                        {
+                            UserId = CurrentUser.Id,
+                            ProductId = SelectedProduct.Id,
+                            Status = "Order confirmed",
+                            TotalPrice = SelectedProduct.Price * ProductCount,
+                            ProductsCount = ProductCount
+                        };
+                        ProductCount = 0;
+                        _dbContext = new();
+                        _dbContext.Orders.Add(newOrder);
+                        _dbContext.SaveChanges();
+                        MessageBox.Show("Sucsessfully bought!");
+                        _navigationService.NavigateTo<GoodsPageViewModel>();
+                    }
+                    else
+                        MessageBox.Show("You must buy at least 1 product");
 
                 });
         }

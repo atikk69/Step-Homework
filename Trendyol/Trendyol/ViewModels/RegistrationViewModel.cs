@@ -81,7 +81,7 @@ namespace Trendyol.ViewModels
                            Name = _nameText,
                            Surname = _surnameText,
                            Email = _emailText,
-                           Password = _passwordText,
+                           Password = BCrypt.Net.BCrypt.HashPassword(_passwordText),
                            Membership = "User"
                        };
                        _dbContext = new();

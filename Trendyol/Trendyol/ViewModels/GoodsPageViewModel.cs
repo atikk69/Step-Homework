@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Documents;
 using Trendyol.Models;
 using Trendyol.Services.Interfaces;
@@ -54,8 +55,15 @@ namespace Trendyol.ViewModels
             get => new(
                 () =>
                 {
-                    _dataService.SendData(SelectedProduct);
-                    _navigationService.NavigateTo<OrderPageViewModel>();
+                    if (SelectedProduct != null)
+                    {
+                        _dataService.SendData(SelectedProduct);
+                        _navigationService.NavigateTo<OrderPageViewModel>();
+                    }
+                    else
+                        MessageBox.Show("Please select a product!");
+
+                    
                    
                 });
         }

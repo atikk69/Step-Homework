@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trendyol.Models;
 
 namespace Trendyol.Services.Classes
 {
@@ -24,17 +25,14 @@ namespace Trendyol.Services.Classes
         }
 
 
-        public bool PasswordIsTrue(string password, DBContext dBContext)
+        public bool PasswordIsTrue(string password, DBContext dBContext,User currentUser)
         {
-            var users = dBContext.Users.ToList();
 
-            foreach (var user in users)
+            if (BCrypt.Net.BCrypt.Verify(password,currentUser.Password))
             {
-                if (password == user.Password)
-                {
-                    return true;
-                }
+                return true;
             }
+            
             return false;
         }
 

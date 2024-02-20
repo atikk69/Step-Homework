@@ -51,7 +51,7 @@ namespace Trendyol.ViewModels
             () =>
             {
                 var currentUser = _dbContext.Users.ToList().First(x => x.Email == Email);
-                if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext) && currentUser.Membership == "User")
+                if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext,currentUser) && currentUser.Membership == "User")
                 {
                     MessageBox.Show("Successfully Loged in!");
                     _dataService.SendData(currentUser);
@@ -60,14 +60,14 @@ namespace Trendyol.ViewModels
                     Password = "";
 
                 }
-                else if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext) && currentUser.Membership == "SuperAdmin")
+                else if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext, currentUser) && currentUser.Membership == "SuperAdmin")
                 {
                     MessageBox.Show("Successfully Loged in!");
                     _navigationService.NavigateTo<SuperAdminMenuViewModel>();
 
 
                 }
-                else if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext) && currentUser.Membership == "Admin")
+                else if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext, currentUser) && currentUser.Membership == "Admin")
                 {
                     MessageBox.Show("Successfully Loged in!");
                     _navigationService.NavigateTo<AdminMenuViewModel>();
