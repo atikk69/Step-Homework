@@ -18,7 +18,7 @@ namespace Trendyol.Models
         [Required]
         public float Price { get; set; }
         [Required]
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
     }
 }

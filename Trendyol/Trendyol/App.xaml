@@ -29,6 +29,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ViewModels:AdminMenuViewModel}">
                 <View:AdminMenu/>
+            </DataTemplate>            
+            <DataTemplate DataType="{x:Type ViewModels:AddProductViewModel}">
+                <View:AddProduct/>
             </DataTemplate>
         </ResourceDictionary>
 

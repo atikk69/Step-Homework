@@ -11,7 +11,7 @@ using Trendyol;
 namespace Trendyol.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20240219191739_first")]
+    [Migration("20240224181322_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -69,9 +69,9 @@ namespace Trendyol.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

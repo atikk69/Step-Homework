@@ -59,7 +59,7 @@
                                 <TextBlock Text="{Binding Id}" FontWeight="Bold" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding Products.Name }" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding ProductsCount }" Margin="5,0,0,0" />
-                                <TextBlock Text="{Binding TotalPrice }" Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding TotalPrice,StringFormat={}{0:C} }" Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding Users.Email }" Margin="5,0,0,0" />
 
                             </StackPanel>

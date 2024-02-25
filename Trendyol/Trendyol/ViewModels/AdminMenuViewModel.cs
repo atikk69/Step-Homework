@@ -62,17 +62,26 @@ namespace Trendyol.ViewModels
             get => new(
                 () =>
                 {
-                    if (SelectedOrder != null)
+                    if (SelectedOrder != null && StatusIndex <= 3)
                     {
                         StatusIndex += 1;
                         SelectedOrder.Status = Statuses[StatusIndex];
                         _dbContext.SaveChanges();
                         MessageBox.Show("Status Leveled up!");
                     }
-                    else
+                    else if (SelectedOrder == null)
                         MessageBox.Show("Please select order!");
+                    else
+                        MessageBox.Show("You order is already delievered!");
                 });
         }
-
+        public RelayCommand ToAddProduct
+        {
+            get => new(
+                () =>
+                {
+                    _navigationService.NavigateTo<AddProductViewModel>();
+                });
+        }
     }
 }

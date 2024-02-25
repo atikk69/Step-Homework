@@ -47,6 +47,8 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+
+        <Button Grid.Column="4" Grid.Row="1" Width="130" Height="60" Background="DarkViolet" Content="Add Product" Command="{Binding ToAddProduct}"  />
         <Button Grid.Column="4" Width="75" Height="50" HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Content ="Exit" FontSize="25" Foreground="White"  Command="{Binding Exit }" />
 
 

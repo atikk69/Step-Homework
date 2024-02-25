@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Trendyol.Messages;
 using Trendyol.Models;
 using Trendyol.Services.Interfaces;
@@ -25,11 +26,24 @@ namespace Trendyol.ViewModels
         public Product _selectedProduct;
         public User _currentUser;
         public List<string> Statuses = ["Order confirmed", "Received at the warehouse", "Shipped", "Under customs inspection", "At the post office"];
+        public ObservableCollection<Warehouse> warehouses;
+        public int _stockCount;
         public int _productCount = 0;
+
+        public ObservableCollection<Warehouse> Warehouses
+        {
+            get { return warehouses; }
+            set { Set(ref warehouses, value); }
+        }
         public int ProductCount
         {
             get { return _productCount; }
             set { Set(ref _productCount, value); }
+        }
+        public int StockCount
+        {
+            get { return _stockCount; }
+            set { Set(ref _stockCount, value); }
         }
         public User CurrentUser
         {
@@ -49,11 +63,12 @@ namespace Trendyol.ViewModels
 
 
 
-        public OrderPageViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger)
+        public OrderPageViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,DBContext dBContext)
         {
             _navigationService = navigationService;
             _dataService = dataService;
             _messenger = messenger;
+            _dbContext = dBContext;
             _messenger.Register<DataMessage>(this, message =>
             {
                 if (message.Data as Product != null)
@@ -88,7 +103,6 @@ namespace Trendyol.ViewModels
                             ProductsCount = ProductCount
                         };
                         ProductCount = 0;
-                        _dbContext = new();
                         _dbContext.Orders.Add(newOrder);
                         _dbContext.SaveChanges();
                         MessageBox.Show("Sucsessfully bought!");

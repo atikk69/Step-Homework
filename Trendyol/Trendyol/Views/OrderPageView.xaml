@@ -20,20 +20,33 @@
 
         <Button Grid.Row="1" Content="-" FontSize="40" HorizontalAlignment="Left" Command="{Binding RemoveProduct}" Margin="30 0 0 0" Width="100" />
         <Button Grid.Row="1" Content="+" FontSize="40" HorizontalAlignment="Right" Command="{Binding AddProduct}" Margin="0 0 30 0" Width="100" />
-        <TextBlock Grid.Row="1" FontSize="30" HorizontalAlignment="Center" Width="80" TextAlignment="Center" Text="{Binding ProductCount }"  />
+        <TextBlock Grid.Row="1" FontSize="30" Height="39" HorizontalAlignment="Center" Width="80" TextAlignment="Center" Text="{Binding ProductCount }"  />
 
         <Button Grid.Column="1"  Grid.Row="1" Width="200" Background="Green" Command="{Binding Buy}" Content="Buy" FontSize="37"  />
         <Button>
             <Image Source="{Binding SelectedProduct.Image}" />
         </Button>
+
         <StackPanel Grid.Column="1">
-            <TextBlock Text="Name" Height="40" FontSize="30"/>
-            <TextBlock Text="{Binding SelectedProduct.Name}" Height="40" FontSize="30"/>
-            <TextBlock Text="Description"  Height="40" FontSize="30"/>
-            <TextBlock Text="{Binding SelectedProduct.Description}" Height="40" FontSize="30"/>
-            <TextBlock Text="Price" Height="40" FontSize="30"/>
-            <TextBlock Text="{Binding SelectedProduct.Price}" Height="40" FontSize="30"/>
+            <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Name: " Height="40" FontSize="30"/>
+                <TextBlock Text="{Binding SelectedProduct.Name}" Height="40" FontSize="30"/>
+            </WrapPanel>
+
+            <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Description: "  Height="40" FontSize="30"/>
+                <TextBlock Text="{Binding SelectedProduct.Description}" Height="40" FontSize="30"/>
+            </WrapPanel>
+
+            <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Price: " Height="40" FontSize="30"/>
+                <TextBlock Text="{Binding SelectedProduct.Price, StringFormat={}{0:C}}" Height="40" FontSize="30"/>
+            </WrapPanel>
         </StackPanel>
+                
+
+
+
 
     </Grid>
 </UserControl>

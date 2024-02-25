@@ -51,7 +51,13 @@ namespace Trendyol.ViewModels
             () =>
             {
                 var currentUser = _dbContext.Users.ToList().First(x => x.Email == Email);
-                if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext,currentUser) && currentUser.Membership == "User")
+                if (Email == null || Password == null)
+                {
+                    MessageBox.Show("Please fill the fields!");
+                    Email = "";
+                    Password = "";
+                }
+                else if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext,currentUser) && currentUser.Membership == "User")
                 {
                     MessageBox.Show("Successfully Loged in!");
                     _dataService.SendData(currentUser);
@@ -64,15 +70,15 @@ namespace Trendyol.ViewModels
                 {
                     MessageBox.Show("Successfully Loged in!");
                     _navigationService.NavigateTo<SuperAdminMenuViewModel>();
-
-
+                    Email = "";
+                    Password = "";
                 }
                 else if (_loginService.IsEmail(_emailText, _dbContext) && _loginService.PasswordIsTrue(_passwordText, _dbContext, currentUser) && currentUser.Membership == "Admin")
                 {
                     MessageBox.Show("Successfully Loged in!");
                     _navigationService.NavigateTo<AdminMenuViewModel>();
-
-
+                    Email = "";
+                    Password = "";
                 }
                 else
                 {
