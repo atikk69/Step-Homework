@@ -55,14 +55,38 @@
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="1" Margin="20">
                         <Grid>
-                            <StackPanel Width="470" Height="100">
-                                <TextBlock Text="{Binding Id}" FontWeight="Bold" Margin="5,0,0,0" />
-                                <TextBlock Text="{Binding Products.Name }" Margin="5,0,0,0" />
-                                <TextBlock Text="{Binding ProductsCount }" Margin="5,0,0,0" />
-                                <TextBlock Text="{Binding TotalPrice,StringFormat={}{0:C} }" Margin="5,0,0,0" />
-                                <TextBlock Text="{Binding Users.Email }" Margin="5,0,0,0" />
-
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Order Id:" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding Id}" FontWeight="Bold" Margin="5,0,0,0" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Product Name:" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding Products.Name }" Margin="5,0,0,0" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Products Count:" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding ProductsCount }" Margin="5,0,0,0" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Total Price:" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding TotalPrice,StringFormat={}{0:C} }" Margin="5,0,0,0" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="User Email:" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding Users.Email }" Margin="5,0,0,0" />
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <TextBlock Text="Order Status:" FontWeight="Bold" Margin="5,0,0,0"/>
+                                    <TextBlock Text="{Binding Status}"/>
+                                </WrapPanel>
                             </StackPanel>
+                            <Image Grid.Column="1" Width="100" Height="100" Source="{Binding Products.Image}"/>
+
                         </Grid>
                     </Border>
                 </DataTemplate>

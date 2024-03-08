@@ -9,10 +9,8 @@ using Trendyol.Views;
 
 namespace Trendyol.Models
 {
-      public class Order
+      public class Order : BaseEntity
       {
-        [Key]
-        public int Id { get; set; }
         [Required,ForeignKey("Users")]
         public int UserId { get; set; }
         [Required,ForeignKey("Products")]

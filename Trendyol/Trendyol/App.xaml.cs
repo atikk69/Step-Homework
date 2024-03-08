@@ -4,11 +4,13 @@ using SimpleInjector;
 using System.Data;
 using System.Windows;
 using System.Windows.Navigation;
+using Trendyol.Models;
 using Trendyol.Services.Classes;
 using Trendyol.Services.Interfaces;
 using NavigationService = Trendyol.Services.Classes.NavigationService;
 using Trendyol.ViewModels;
 using Trendyol.Views;
+using Trendyol.Repository;
 
 namespace Trendyol
 {
@@ -38,7 +40,14 @@ namespace Trendyol
             Container.RegisterSingleton<AddProductViewModel>();
             Container.RegisterSingleton<DBContext>();
             Container.RegisterSingleton<LogInService>();
-            
+            Container.RegisterSingleton<VerificationService>();
+
+
+            Container.RegisterSingleton<IOrderRepository, OrderRepository>();
+            Container.RegisterSingleton<IProductRepository, ProductRepository>();
+            Container.RegisterSingleton<IRepository<BaseEntity>, Repository<BaseEntity>>();
+            Container.RegisterSingleton<IUserRepository, UserRepository>();
+            Container.RegisterSingleton<IWarehouseRepository, WarehouseRepository>();
 
             Container.Verify();
         }

@@ -41,6 +41,10 @@
             <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Left">
                 <TextBlock Text="Price: " Height="40" FontSize="30"/>
                 <TextBlock Text="{Binding SelectedProduct.Price, StringFormat={}{0:C}}" Height="40" FontSize="30"/>
+            </WrapPanel>            
+            <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="In Stock: " Height="40" FontSize="30"/>
+                <TextBlock Text="{Binding StockCount.Count}" Height="40" FontSize="30"/>
             </WrapPanel>
         </StackPanel>
                 

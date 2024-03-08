@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Trendyol.Messages;
 using Trendyol.Models;
+using Trendyol.Repository;
 using Trendyol.Services.Interfaces;
 
 namespace Trendyol.ViewModels
@@ -22,13 +23,23 @@ namespace Trendyol.ViewModels
         private readonly IMessenger _messenger;
         private readonly INavigationService _navigationService;
         private readonly IDataService _dataService;
-        public DBContext _dbContext;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
+
         public Product _selectedProduct;
         public User _currentUser;
         public List<string> Statuses = ["Order confirmed", "Received at the warehouse", "Shipped", "Under customs inspection", "At the post office"];
-        public ObservableCollection<Warehouse> warehouses;
-        public int _stockCount;
+        public Warehouse _stockCount;
         public int _productCount = 0;
+        public ObservableCollection<Warehouse> warehouses;
+        public ObservableCollection<Order> _orders;
+
+        public ObservableCollection<Order> Orders
+        {
+            get { return _orders; }
+            set { Set(ref _orders, value); }
+        }
+
 
         public ObservableCollection<Warehouse> Warehouses
         {
@@ -40,7 +51,7 @@ namespace Trendyol.ViewModels
             get { return _productCount; }
             set { Set(ref _productCount, value); }
         }
-        public int StockCount
+        public Warehouse StockCount
         {
             get { return _stockCount; }
             set { Set(ref _stockCount, value); }
@@ -63,12 +74,13 @@ namespace Trendyol.ViewModels
 
 
 
-        public OrderPageViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,DBContext dBContext)
+        public OrderPageViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger, IOrderRepository orderRepository,IWarehouseRepository warehouseRepository)
         {
             _navigationService = navigationService;
             _dataService = dataService;
             _messenger = messenger;
-            _dbContext = dBContext;
+            _orderRepository = orderRepository;
+            _warehouseRepository = warehouseRepository;
             _messenger.Register<DataMessage>(this, message =>
             {
                 if (message.Data as Product != null)
@@ -82,6 +94,20 @@ namespace Trendyol.ViewModels
                 if (message.Data as User != null)
                 {
                     CurrentUser = message.Data as User;
+                }
+            });
+            _messenger.Register<DataMessage>(this, message =>
+            {
+                if (message.Data as Warehouse  != null)
+                {
+                    StockCount = message.Data as Warehouse;
+                }
+            });
+            _messenger.Register<DataMessage>(this, message =>
+            {
+                if (message.Data as ObservableCollection<Order> != null)
+                {
+                    Orders = message.Data as ObservableCollection<Order>;
                 }
             });
         }
@@ -102,11 +128,17 @@ namespace Trendyol.ViewModels
                             TotalPrice = SelectedProduct.Price * ProductCount,
                             ProductsCount = ProductCount
                         };
+                        StockCount.Count -= ProductCount;
                         ProductCount = 0;
-                        _dbContext.Orders.Add(newOrder);
-                        _dbContext.SaveChanges();
+                        _orderRepository.Insert(newOrder);
+                        _orderRepository.SaveChanges();
+                        _warehouseRepository.SaveChanges();
+                        Orders = new ObservableCollection<Order>(_orderRepository.GetAll());
+                        StockCount = _warehouseRepository.GetByProductId(SelectedProduct.Id);
+                        _dataService.SendData(Orders);
                         MessageBox.Show("Sucsessfully bought!");
                         _navigationService.NavigateTo<GoodsPageViewModel>();
+                        
                     }
                     else
                         MessageBox.Show("You must buy at least 1 product");
@@ -120,7 +152,8 @@ namespace Trendyol.ViewModels
             get => new(
                 () =>
                 {
-                    ProductCount += 1;                
+                    if(ProductCount != StockCount.Count)
+                        ProductCount += 1;                
                 });
         }
 
@@ -130,7 +163,9 @@ namespace Trendyol.ViewModels
                 () =>
                 {
                     if (ProductCount > 0)
+                    {
                         ProductCount -= 1;
+                    }
                 });
         }
 

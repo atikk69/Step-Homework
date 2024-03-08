@@ -11,16 +11,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Trendyol.Models;
+using Trendyol.Repository;
 using Trendyol.Services.Interfaces;
 
 namespace Trendyol.ViewModels;
 
 class SuperAdminMenuViewModel : ViewModelBase
 {
-    private readonly IMessenger _messenger;
     private readonly INavigationService _navigationService;
-    private readonly IDataService _dataService;
-    public DBContext _dbContext;
+    private readonly IUserRepository _userRepository;
     public User _selectedUser;
     public ObservableCollection<User> users;
 
@@ -38,13 +37,11 @@ class SuperAdminMenuViewModel : ViewModelBase
     }
 
 
-    public SuperAdminMenuViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,DBContext dBContext)
+    public SuperAdminMenuViewModel(INavigationService navigationService,IUserRepository userRepository)
     {
         _navigationService = navigationService;
-        _dataService = dataService;
-        _messenger = messenger;
-        _dbContext = dBContext;
-        Users = new ObservableCollection<User>(_dbContext.Users.ToList());
+        _userRepository = userRepository;
+        Users = new ObservableCollection<User>(_userRepository.GetAll());
     }
 
 
@@ -66,9 +63,11 @@ class SuperAdminMenuViewModel : ViewModelBase
                 {
                     if (SelectedUser.Membership == "User")
                     {
-                        SelectedUser.Membership = "Admin";
-                        _dbContext.SaveChanges();
+                        var user = _userRepository.GetByEmail(SelectedUser.Email);
+                        user.Membership = "Admin";
+                        _userRepository.SaveChanges();
                         MessageBox.Show("Sucsessfully switched to admin");
+                        Users = new ObservableCollection<User>(_userRepository.GetAll());
                     }
                     else if (SelectedUser.Membership == "SuperAdmin")
                     {
@@ -90,9 +89,11 @@ class SuperAdminMenuViewModel : ViewModelBase
                 {
                     if (SelectedUser.Membership == "Admin")
                     {
-                        SelectedUser.Membership = "User";
-                        _dbContext.SaveChanges();
+                        var user = _userRepository.GetByEmail(SelectedUser.Email);
+                        user.Membership = "User";
+                        _userRepository.SaveChanges();
                         MessageBox.Show("Sucsessfully switched to user");
+                        Users = new ObservableCollection<User>(_userRepository.GetAll());
                     }
                     else if (SelectedUser.Membership == "SuperAdmin")
                     {

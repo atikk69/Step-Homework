@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Trendyol.Models
 {
-    public class User
+    public class User : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

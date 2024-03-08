@@ -12,16 +12,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using Trendyol.Messages;
 using Trendyol.Models;
+using Trendyol.Repository;
 using Trendyol.Services.Classes;
 using Trendyol.Services.Interfaces;
 
 namespace Trendyol.ViewModels;
- class ProfileViewModel : ViewModelBase
+class ProfileViewModel : ViewModelBase
 {
+    private readonly IDataService _dataService;
     private readonly IMessenger _messenger;
     private readonly INavigationService _navigationService;
-    private readonly IDataService _dataService;
-    public DBContext _dbContext;
+    private readonly IOrderRepository _orderRepository;
     public User _currentUser;
     public Order _selectedOrder;
     public ObservableCollection<Order> orders;
@@ -47,20 +48,24 @@ namespace Trendyol.ViewModels;
     }
 
 
-    public ProfileViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,DBContext dBContext)
+    public ProfileViewModel(INavigationService navigationService, IMessenger messenger,IOrderRepository orderRepository, IDataService dataService)
     {
         _navigationService = navigationService;
-        _dataService = dataService;
         _messenger = messenger;
-        _dbContext = dBContext;
-        Orders = new ObservableCollection<Order>(_dbContext.Orders.Include(x => x.Users).Include(x => x.Products).ToList());
-
+        _orderRepository = orderRepository;
+        _dataService = dataService;
         _messenger.Register<DataMessage>(this, message =>
         {
             if (message.Data as User != null)
             {
-             CurrentUser = message.Data as User;
+                CurrentUser = message.Data as User;
+                Orders = new ObservableCollection<Order>(_orderRepository.GetOrders().Where(x => x.UserId == CurrentUser.Id));
+                _dataService.SendData(Orders);
 
+            } 
+            if (message.Data as ObservableCollection<Order> != null && CurrentUser != null)
+            {
+                Orders = new ObservableCollection<Order>(_orderRepository.GetOrders().Where(x => x.UserId == CurrentUser.Id));
             }
         });
     }
@@ -75,17 +80,6 @@ namespace Trendyol.ViewModels;
                 _navigationService.NavigateTo<GoodsPageViewModel>();
             });
     }
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

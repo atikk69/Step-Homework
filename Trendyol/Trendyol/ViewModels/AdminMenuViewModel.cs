@@ -9,7 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Trendyol.Messages;
 using Trendyol.Models;
+using Trendyol.Repository;
 using Trendyol.Services.Interfaces;
 
 namespace Trendyol.ViewModels
@@ -19,10 +21,9 @@ namespace Trendyol.ViewModels
         private readonly IMessenger _messenger;
         private readonly INavigationService _navigationService;
         private readonly IDataService _dataService;
-        public DBContext _dbContext;
+        IOrderRepository _orderRepository;
         public Order _selectedOrder;
         public List<string> Statuses = ["Order confirmed", "Received at the warehouse", "Shipped", "Under customs inspection", "At the post office"];
-        public int StatusIndex = 0;
         public ObservableCollection<Order> orders;
 
         public ObservableCollection<Order> Orders
@@ -37,13 +38,20 @@ namespace Trendyol.ViewModels
         }
 
 
-        public AdminMenuViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,DBContext dBContext)
+        public AdminMenuViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,IOrderRepository orderRepository)
         {
             _navigationService = navigationService;
             _dataService = dataService;
             _messenger = messenger;
-            _dbContext = dBContext;
-            Orders = new ObservableCollection<Order>(_dbContext.Orders.Include(x => x.Users).Include(x => x.Products).ToList());
+            _orderRepository = orderRepository;
+            Orders = new ObservableCollection<Order>(_orderRepository.GetOrders());
+            _messenger.Register<DataMessage>(this, message =>
+            {
+                if (message.Data as ObservableCollection<Order> != null)
+                {
+                    Orders = message.Data as ObservableCollection<Order>;
+                }
+            });
         }
 
 
@@ -62,17 +70,45 @@ namespace Trendyol.ViewModels
             get => new(
                 () =>
                 {
-                    if (SelectedOrder != null && StatusIndex <= 3)
+                    if (SelectedOrder != null && SelectedOrder.Status != "At the post office")
                     {
-                        StatusIndex += 1;
-                        SelectedOrder.Status = Statuses[StatusIndex];
-                        _dbContext.SaveChanges();
-                        MessageBox.Show("Status Leveled up!");
+                        for (int i = 0; i < 5; i++)
+                        {
+                            if (SelectedOrder.Status == Statuses[i])
+                            {
+                                SelectedOrder.Status = Statuses[i + 1];
+                                _orderRepository.SaveChanges();
+                                MessageBox.Show("Status Leveled up!");
+                                Orders = new ObservableCollection<Order>(_orderRepository.GetOrders());
+                                _dataService.SendData(Orders);
+                                return;
+                            }
+                        }
                     }
                     else if (SelectedOrder == null)
                         MessageBox.Show("Please select order!");
                     else
                         MessageBox.Show("You order is already delievered!");
+                });
+        }
+        public RelayCommand DeleteOrder
+        {
+            get => new(
+                () =>
+                {
+                    if (SelectedOrder != null && SelectedOrder.Status == "Order confirmed")
+                    {
+                        _orderRepository.Delete(SelectedOrder);
+                        _orderRepository.SaveChanges();
+                        Orders = new ObservableCollection<Order>(_orderRepository.GetOrders());
+                        _dataService.SendData(Orders);
+                        MessageBox.Show("Order sucessfully deleted");
+                    }
+                    else if (SelectedOrder != null && SelectedOrder.Status != "Order confirmed")
+                        MessageBox.Show("Can't delete the order");
+                    else
+                        MessageBox.Show("Please select order!");
+                    
                 });
         }
         public RelayCommand ToAddProduct

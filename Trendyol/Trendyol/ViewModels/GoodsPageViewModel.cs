@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,8 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using Trendyol.Messages;
 using Trendyol.Models;
+using Trendyol.Repository;
 using Trendyol.Services.Interfaces;
 using Trendyol.Views;
 
@@ -20,9 +24,24 @@ namespace Trendyol.ViewModels
         private readonly IMessenger _messenger;
         private readonly INavigationService _navigationService;
         private readonly IDataService _dataService;
-        public DBContext _dbContext;
-        private readonly ObservableCollection<Product> _products;
+        private readonly IOrderRepository _orderRepository;
+        public readonly IProductRepository _productRepository;
+        public readonly IWarehouseRepository _warehouseRepository;
         public Product _selectedProduct;
+        public ObservableCollection<Warehouse> warehouses;
+        public ObservableCollection<Order> orders;
+
+        public ObservableCollection<Order> Orders
+        {
+            get { return orders; }
+            set { Set(ref orders, value); }
+        }
+
+        public ObservableCollection<Warehouse> Warehouses
+        {
+            get { return warehouses; }
+            set { Set(ref warehouses, value); }
+        }
 
         public ObservableCollection<Product> Products { get; set; }
 
@@ -40,13 +59,31 @@ namespace Trendyol.ViewModels
         }
 
 
-        public GoodsPageViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger, DBContext dBContext)
+        public GoodsPageViewModel(INavigationService navigationService, IDataService dataService,IProductRepository productRepository,IWarehouseRepository warehouseRepository,IMessenger messenger,IOrderRepository orderRepository)
         {
-            _dbContext = dBContext;
             _navigationService = navigationService;
             _dataService = dataService;
+            _productRepository = productRepository;
+            _warehouseRepository = warehouseRepository;
+            _orderRepository = orderRepository;
             _messenger = messenger;
-            Products =  new ObservableCollection<Product>(_dbContext.Products);
+            Products =  new ObservableCollection<Product>(_productRepository.GetAll());
+            _dataService.SendData(Products);
+            Warehouses = new ObservableCollection<Warehouse>(_warehouseRepository.GetAll());
+            _messenger.Register<DataMessage>(this, message =>
+            {
+                if (message.Data as ObservableCollection<Product> != null)
+                {
+                    Products = message.Data as ObservableCollection<Product>;
+                }
+                _messenger.Register<DataMessage>(this, message =>
+                {
+                    if (message.Data as ObservableCollection<Order> != null)
+                    {
+                        Orders = message.Data as ObservableCollection<Order>;
+                    }
+                });
+            });
         }
 
 
@@ -57,13 +94,13 @@ namespace Trendyol.ViewModels
                 {
                     if (SelectedProduct != null)
                     {
+                        var CurrentInStock = _warehouseRepository.GetByProductId(SelectedProduct.Id);
                         _dataService.SendData(SelectedProduct);
+                        _dataService.SendData(CurrentInStock);
                         _navigationService.NavigateTo<OrderPageViewModel>();
                     }
                     else
                         MessageBox.Show("Please select a product!");
-
-                    
                    
                 });
         }
@@ -85,6 +122,8 @@ namespace Trendyol.ViewModels
                 () =>
                 {
                     _navigationService.NavigateTo<LogInViewModel>();
+                    Orders = new ObservableCollection<Order>(_orderRepository.GetOrders());
+                    _dataService.SendData(Orders);
                 });
         }
 

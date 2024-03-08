@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Trendyol.Models;
+using Trendyol.Repository;
 using Trendyol.Services.Classes;
 using Trendyol.Services.Interfaces;
 using Trendyol.Views;
@@ -17,12 +18,10 @@ namespace Trendyol.ViewModels
 {
     class RegistrationViewModel : ViewModelBase
     {
-        private readonly IMessenger _messenger;
         private readonly INavigationService _navigationService;
         private readonly IDataService _dataService;
-        private readonly NavigationService navigationService;
+        private readonly IUserRepository _userRepository;
         private readonly VerificationService _verificationService = new();
-        DBContext _dbContext;
         public LogInService _loginService;
         public string _nameText = "";
         public string _surnameText = "";
@@ -58,13 +57,12 @@ namespace Trendyol.ViewModels
         }
 
 
-        public RegistrationViewModel(INavigationService navigationService, IDataService dataService, IMessenger messenger,DBContext dBContext,LogInService logInService)
+        public RegistrationViewModel(INavigationService navigationService, IDataService dataService,LogInService logInService,IUserRepository userRepository)
         {
             _navigationService = navigationService;
             _dataService = dataService;
-            _messenger = messenger;
-            _dbContext = dBContext;
             _loginService = logInService;
+            _userRepository = userRepository;
         }
 
 
@@ -78,7 +76,7 @@ namespace Trendyol.ViewModels
                        MessageBox.Show("Please fill the fields!");
 
                    }
-                   else if (_loginService.IsEmail(_emailText, _dbContext))
+                   else if (_loginService.IsEmail(_emailText, _userRepository))
                    {
                        MessageBox.Show("This email is already registered");
 
@@ -88,7 +86,7 @@ namespace Trendyol.ViewModels
                    && _verificationService.IsEmailameValid(_emailText)
                    && _verificationService.IsPasswordValid(_passwordText)
                    && _verificationService.IsPasswordValid(_confirmpasswordText)
-                   && _passwordText == _confirmpasswordText && !_loginService.IsEmail(_emailText,_dbContext))
+                   && _passwordText == _confirmpasswordText && !_loginService.IsEmail(_emailText, _userRepository))
                    {
                        User newUser = new()
                        {
@@ -98,9 +96,9 @@ namespace Trendyol.ViewModels
                            Password = BCrypt.Net.BCrypt.HashPassword(_passwordText),
                            Membership = "User"
                        };
-                       _dbContext.Users.Add(newUser);
+                       _userRepository.Insert(newUser);
                        _dataService.SendData(newUser);
-                       _dbContext.SaveChanges();
+                       _userRepository.SaveChanges();   
                        MessageBox.Show("Successfully Signed Up!");
                        _navigationService.NavigateTo<GoodsPageViewModel>();
 

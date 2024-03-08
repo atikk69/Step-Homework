@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Trendyol.Models
 {
-    class Warehouse
+    public class Warehouse : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-        [Required,]
+        [Required]
         public int ProductId { get; set; }
         [Required]
-        public int count { get; set; }
+        public int Count { get; set; }
+
+        public ObservableCollection<Product> Products;
     }
 }

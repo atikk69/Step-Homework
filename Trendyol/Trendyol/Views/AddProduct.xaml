@@ -9,13 +9,15 @@
     <Grid Background="White" >
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontSize="28" Height="40" Text="AddProductPage" Width="300"/>
         <Button Height="69" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Content="⇐" FontSize="36" Background="Red" Command="{Binding Exit}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
-        <StackPanel Height="350" Width="350">
+        <StackPanel VerticalAlignment="Bottom" Height="420" Width="350">
             <TextBlock Text="Name" FontSize="18" Height="25"/>
             <TextBox FontSize="18" Height="25" Text="{Binding Name}"/>
             <TextBlock FontSize="18" Height="25" Text="Description"/>
             <TextBox FontSize="18" Height="25" Text="{Binding Description}"/>
             <TextBlock Text="Price" FontSize="18" Height="25" />
             <TextBox FontSize="18" Height="25" Text="{Binding Price}"/>
+            <TextBlock Text="Count" FontSize="18" Height="25" />
+            <TextBox FontSize="18" Height="25" Text="{Binding ProductCount}"/>
             <Button Height="40" Command="{Binding AddProduct}" Width="139" Margin="5 5 0 0" HorizontalAlignment="Right" Content="Add Product🥒" FontSize="18" />
             <Image Source="{Binding SelectedImage}" Width="140" Height="100" HorizontalAlignment="Left" />
             <Button Height="40" Command="{Binding BrowseImage}" Width="139" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="Select Image 🍆" FontSize="18" />

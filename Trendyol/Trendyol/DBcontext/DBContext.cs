@@ -9,7 +9,7 @@ using Trendyol.Models;
 
 namespace Trendyol
 {
-    internal class DBContext : DbContext
+    public class DBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }

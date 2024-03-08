@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trendyol.Models;
+using Trendyol.Repository;
 
 namespace Trendyol.Services.Classes
 {
     class LogInService
     {
 
-        public bool IsEmail(string login,DBContext dBContext)
+        public bool IsEmail(string login,IUserRepository userRepository)
         {
-            var users = dBContext.Users.ToList();
+            var users = userRepository.GetAll();
 
             foreach (var user in users)
             {
@@ -25,9 +26,9 @@ namespace Trendyol.Services.Classes
         }
 
 
-        public bool PasswordIsTrue(string password, DBContext dBContext,User currentUser)
+        public bool PasswordIsTrue(string email ,string password, IUserRepository userRepository)
         {
-
+            var currentUser = userRepository.GetByEmail(email);
             if (BCrypt.Net.BCrypt.Verify(password,currentUser.Password))
             {
                 return true;
