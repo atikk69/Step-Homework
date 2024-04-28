@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.definition-list {
+    margin-bottom: 10px;
+}
+
+.definition-list dt {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.definition-list dd {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.example {
+    color: #666666;
+    margin-left: 20px;
+    font-style: italic;
+}
+
+.synonyms {
+    font-weight: bold;
+    color: #000;
+    margin-left: 20px;
+}
+
+.synonym-list {
+    color: #007bff;
+}

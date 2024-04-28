@@ -1,0 +1,55 @@
+.todo-list {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.todo-list li {
+  height: 40px;
+  width: 500px;
+  display: flex;
+  align-items: center; 
+  padding-left: 10px;
+}
+
+.todo-list input[type="checkbox"] {
+  display: none;
+}
+
+.todo-list input[type="checkbox"] + label:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 3px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.todo-list input[type="checkbox"]:checked + label:before {
+  content: "\2713";
+  font-size: 18px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.todo-list li::after {
+  content: "✕";
+  color: red;
+  margin-left: 20px;
+}
+
+.todo-list li:nth-child(even) {
+  background-color: rgb(165, 204, 218);
+}
+
+.todo-list li:nth-child(odd) {
+  background-color: rgb(173, 216, 230);
+}
+
+.todo-list input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+}
+
+.todo-list li:has(input:checked){
+  background-color: aliceblue;
+}

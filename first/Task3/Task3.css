@@ -1,0 +1,17 @@
+.DocName{
+    text-align: center;
+}
+
+p {
+    white-space: pre-line;
+}
+
+.dotted-underline {
+    text-decoration: underline dotted;
+}
+
+.rectangle {
+    color: red;
+    display: inline-block;
+    background-color: lightgray; 
+}
