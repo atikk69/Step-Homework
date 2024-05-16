@@ -1,0 +1,68 @@
+.container {
+  width: 1920px;
+}
+
+.container .textfirstelement-container {
+  display: flex;
+  width: 38vh;
+  height: 9vh;
+  margin: 0 auto;
+  margin-top: 10vh;
+  margin-left: 50vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffea00;
+  z-index: -1;
+}
+
+.container .textfirstelement-container h2 {
+  font-size: 56px;
+  font-weight: normal;
+  color: #414146;
+}
+
+.container .textsecondelement-container {
+  display: flex;
+  width: 35vh;
+  height: 5vh;
+  margin-left: 50vh;
+  margin-top: 10px;
+  text-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #565a60;
+}
+
+.container .textsecondelement-container h3 {
+  font-size: 19px;
+  font-weight: normal;
+  color: white;
+}
+
+.container .readmore {
+  display: flex;
+  width: 17vh;
+  height: 40px;
+  margin-left: 50vh;
+  margin-top: 70px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #414146;
+  transition: 0.4s;
+}
+
+.container .readmore .hrefbutton {
+  display: flex;
+  width: 50px;
+  height: 40px;
+  background-image: url(../assets/photos/arrow-rm.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #ffea00;
+}
+
+.container .readmore:hover {
+  background-color: #ffea00;
+  transition: 0.4s;
+  cursor: pointer;
+}

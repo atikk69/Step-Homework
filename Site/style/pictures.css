@@ -1,0 +1,27 @@
+/* Стили для картинок */
+@font-face {
+  font-family: OswaldLight;
+  src: url(../assets/fonts/oswald-light.ttf);
+}
+.tablet-img {
+  position: absolute;
+  width: 380px;
+  bottom: 40%;
+  left: 50%;
+}
+.border-solana .salana img {
+  display: flex;
+  width: 12vh;
+  margin-left: 3vh;
+  cursor: pointer;
+}
+
+.container .items-container .responsive .hrefresponsive .icon img {
+  transform: scale(0.6);
+}
+.container .items-container .easytocustomize .hrefeasytocustomize .icon img {
+  transform: scale(0.6);
+}
+.container .items-container .retinaready .hrefretinaready .icon img {
+  transform: scale(0.6);
+}

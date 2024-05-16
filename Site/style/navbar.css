@@ -1,0 +1,57 @@
+@font-face {
+  font-family: OswaldLight;
+  src: url(../assets/fonts/oswald-light.ttf);
+}
+.border-container {
+  display: flex;
+  width: 1920px;
+  height: 6vh;
+  background-color: #262626;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.border-container .envato-logo {
+  display: flex;
+  flex-direction: column;
+  width: 16vh;
+  margin-left: 2vh;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.border-container .buy-now {
+  display: flex;
+  width: 10vh;
+  height: 40px;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 15px;
+  font-family: "Segoe UI", sans-serif;
+  text-wrap: nowrap;
+  background-color: #82b440;
+  color: white;
+  cursor: pointer;
+}
+
+.border-container .buy-now:hover {
+  opacity: 0.9;
+}
+
+.border-container .buy-now:active {
+  height: 38px;
+}
+
+.border-solana {
+  width: 1920px;
+  display: flex;
+  width: 55%;
+  height: 9vh;
+  align-items: center;
+  background-color: #414146;
+  margin: 10px auto 0;
+}
