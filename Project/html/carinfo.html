@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .car-info img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .car-details {
+            margin-top: 20px;
+        }
+        .car-details h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #2e7d32;
+        }
+        .car-details p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="car-info" class="car-info">
+            <!-- Car details will be loaded here -->
+        </div>
+        <a href="index.html" class="back-button">Back to Listings</a>
+    </div>
+
+    <script>
+        const cars = [
+            {
+                id: 1,
+                image: 'https://turlar.az/uploads/news/16926999893780964e48d5534d6a.jpeg',
+                name: 'Hyundai Elantra',
+                price: '21 000 AZN',
+                make: 'Hyundai',
+                year: 2015,
+                engine: '1.8 L',
+                mileage: '57,000 km',
+                location: 'Baku',
+                date: 'Today 15:34',
+                badges: ['VIN', 'Premium']
+            },
+            {
+                id: 2,
+                image: 'https://images.topgear.com.ph/topgear/images/2024/03/20/jmc-grand-avenue-1710918227.jpg',
+                name: 'JMC Grand Avenue',
+                price: '53 000 AZN',
+                make: 'JMC',
+                year: 2024,
+                engine: '2.3 L',
+                mileage: '0 km',
+                location: 'Baku',
+                date: 'Today 15:34',
+                badges: ['Salon', 'Premium']
+            },
+            {
+                id: 3,
+                image: 'https://toyotacanada.scene7.com/is/image/toyotacanada/2017_Toyota_Corolla_XSE_011-1?ts=1688662096324&$Media-Large$&dpr=off',
+                name: 'Toyota Corolla',
+                price: '18 500 AZN',
+                make: 'Toyota',
+                year: 2018,
+                engine: '1.6 L',
+                mileage: '45,000 km',
+                location: 'Ganja',
+                date: 'Today 12:45',
+                badges: ['VIN', 'Economy']
+            },
+            {
+                id: 4,
+                image: 'https://www.cnet.com/a/img/resize/265a8109841c28eb91f7b8526f01f3924be21081/hub/2020/03/18/6e627859-028a-4921-82fd-8fa75dc2f630/2020-bmw-x5-m50i-1.jpg?auto=webp&fit=crop&height=675&width=1200',
+                name: 'BMW X5',
+                price: '75 000 AZN',
+                make: 'BMW',
+                year: 2020,
+                engine: '3.0 L',
+                mileage: '20,000 km',
+                location: 'Baku',
+                date: 'Today 10:00',
+                badges: ['VIN', 'Luxury']
+            },
+            {
+                id: 5,
+                image: 'https://www.rushlane.com/wp-content/uploads/2019/09/2019-mercedes-c-class-diesel-update-launch-1-1200x675.jpg',
+                name: 'Mercedes-Benz C-Class',
+                price: '50 000 AZN',
+                make: 'Mercedes-Benz',
+                year: 2019,
+                engine: '2.0 L',
+                mileage: '30,000 km',
+                location: 'Sumgait',
+                date: 'Yesterday 18:20',
+                badges: ['VIN', 'Premium']
+            }
+        ];
+
+        function getCarIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'));
+        }
+
+        function loadCarDetails(carId) {
+            const car = cars.find(car => car.id === carId);
+            if (car) {
+                const carInfoDiv = document.getElementById('car-info');
+                carInfoDiv.innerHTML = `
+                    <img src="${car.image}" alt="${car.name}">
+                    <div class="car-details">
+                        <h2>${car.name}</h2>
+                        <p><strong>Price:</strong> ${car.price}</p>
+                        <p><strong>Make:</strong> ${car.make}</p>
+                        <p><strong>Year:</strong> ${car.year}</p>
+                        <p><strong>Engine:</strong> ${car.engine}</p>
+                        <p><strong>Mileage:</strong> ${car.mileage}</p>
+                        <p><strong>Location:</strong> ${car.location}</p>
+                        <p><strong>Date:</strong> ${car.date}</p>
+                        <p><strong>Badges:</strong> ${car.badges.join(', ')}</p>
+                    </div>
+                `;
+            } else {
+                document.getElementById('car-info').innerHTML = '<p>Car not found.</p>';
+            }
+        }
+
+        const carId = getCarIdFromUrl();
+        loadCarDetails(carId);
+    </script>
+</body>
+</html>
