@@ -7,7 +7,7 @@ export default function CatalogItems() {
         <div className="container mx-auto px-5 py-10">
           <div className="-m-4 flex flex-wrap">
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -21,7 +21,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded" >
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -35,7 +35,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded" >
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -49,7 +49,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -63,7 +63,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -77,7 +77,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -91,7 +91,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -105,7 +105,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -119,7 +119,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -133,7 +133,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -147,7 +147,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"
@@ -161,7 +161,7 @@ export default function CatalogItems() {
               </div>
             </div>
             <div className="w-full p-4 md:w-1/2 lg:w-1/4">
-              <a className="relative block h-48 overflow-hidden rounded" href="#">
+              <a className="relative block h-48 overflow-hidden rounded">
                 <img
                   alt="ecommerce"
                   className="block h-full w-full object-cover object-center cursor-pointer"

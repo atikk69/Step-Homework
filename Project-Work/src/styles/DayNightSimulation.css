@@ -1,0 +1,277 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+#info {
+  position: absolute;
+  left: 5%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Lato';
+  text-align: center;
+}
+
+.section {
+  padding-top: 40px;
+  font-size: 1em;
+  text-align: center;
+  background: #f1ede3;
+  width: 100%;
+  height: 800px;
+  color: #555;
+  transition: background 0.5s ease-in-out;
+}
+
+.night .section {
+  background: #080d17;
+  color: #e9e5d5;
+}
+
+.night #intro-text {
+  color: #e9e5d5;
+}
+
+.time-circle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(to bottom, #BE4405, #F6C60C);
+  width: 150px; /* Уменьшите размер круга */
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  transition: all 1.1s ease-in-out;
+  z-index: 999; /* Переносим в передний план */
+}
+
+.night .time-circle {
+  background: linear-gradient(to bottom, #111936, #285A7B);
+  border-color: #e9e5d5;
+}
+
+.sun {
+  background: #F2EF88;
+  box-shadow: 0 0 20px rgba(242, 239, 136, 0.4);
+  width: 50px; /* Уменьшите размер солнца */
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulse 5s ease infinite alternate;
+  transition: all 1.1s 0.4s ease;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 20px rgba(242, 239, 136, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(242, 239, 136, 1);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(242, 239, 136, 0.4);
+  }
+}
+
+.night .sun {
+  top: 70%;
+  left: 20%;
+  transition: all 1.1s 0s ease;
+}
+
+.moon {
+  position: absolute;
+  background: #d9d8d0;
+  box-shadow: inset -10px 2px 0 0px #899098;
+  width: 45px; /* Уменьшите размер луны */
+  height: 45px;
+  border-radius: 100%;
+  left: 55%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  transition: all 1.1s 0s ease;
+}
+
+.night .moon {
+  left: 65%;
+  top: -10%;
+  transition: all 1.1s 0.4s ease;
+}
+
+.moon div:nth-child(n) {
+  position: absolute;
+  background: #b9b8b0;
+  border-radius: 50%;
+  box-shadow: inset 4px -2px 0 0px #535457;
+}
+
+.moon div:nth-child(1) {
+  top: 25%;
+  left: 12%;
+  width: 12px;
+  height: 12px;
+}
+
+.moon div:nth-child(2) {
+  top: -11%;
+  left: 60%;
+  width: 8px;
+  height: 8px;
+}
+
+.moon div:nth-child(3) {
+  top: 25%;
+  left: 44%;
+  width: 8px;
+  height: 8px;
+}
+
+.stars {
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transition: all 0.8s 0s ease;
+}
+
+.night .stars {
+  opacity: 1;
+  transition: all 3s 0.4s ease;
+}
+
+.stars div:nth-child(n) {
+  position: absolute;
+  background: radial-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  overflow: hidden;
+  width: 4px;
+  height: 4px;
+  transition: all 1s 0s ease;
+}
+
+.night .stars div:nth-child(n) {
+  transition: all 1s 0.4s ease-out;
+}
+
+.stars div:nth-child(1) {
+  left: 25%;
+  top: 30%;
+}
+
+.stars div:nth-child(2) {
+  left: 55%;
+  top: 20%;
+}
+
+.stars div:nth-child(3) {
+  left: 60%;
+  top: 60%;
+}
+
+.stars div:nth-child(4) {
+  left: 40%;
+  top: 45%;
+}
+
+.stars div:nth-child(5) {
+  left: 15%;
+  top: 55%;
+}
+
+.stars div:nth-child(6) {
+  left: 40%;
+  top: 10%;
+}
+
+.stars div:nth-child(7) {
+  left: 80%;
+  top: 55%;
+}
+
+.water {
+  position: absolute;
+  background: repeating-radial-gradient(ellipse farthest-corner at center -400%, #f5c30e 30%, #518eac 90%) repeat scroll 0 0 #518eac;
+  width: 100%;
+  height: 200px;
+  top: 68%;
+  transition: all 1.1s ease;
+}
+
+.night .water {
+  background: repeating-radial-gradient(ellipse farthest-corner at center -400%, #7fa1bb 30%, #1d425a 90%) repeat scroll 0 0 #1d425a;
+}
+
+#switch,
+#circle {
+  height: 30px;
+  transition: all 0.4s cubic-bezier(0.54, 1.6, 0.5, 1);
+}
+
+#switch {
+  width: 60px;
+  margin: 0 auto;
+  border: 2px solid #DA8508;
+  border-radius: 27px;
+  background: #DA8508;
+  position: relative;
+}
+
+#circle {
+  margin-top: 5%;
+  margin-left: 5%;
+  width: 40%;
+  height: 80%;
+  border-radius: 50%;
+  box-shadow: 0 4px 4px rgba(26, 53, 71, 0.25), 0 0 0 1px rgba(26, 53, 71, 0.07);
+  background: #e9e5d5;
+}
+
+.switched {
+  border-color: #1C3958 !important;
+  background: #1C3958 !important;
+}
+
+.switched #circle {
+  margin-left: 55%;
+  background: #e9e5d5;
+}
+
+/* Новые стили для маленькой кнопки в верхнем правом углу */
+#small-switch {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 30px; /* Размер кнопки */
+  height: 30px;
+  border: 2px solid #DA8508;
+  border-radius: 50%;
+  background: #DA8508;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.54, 1.6, 0.5, 1);
+  z-index: 1000; /* Переносим в передний план */
+}
+
+#small-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e9e5d5;
+  margin: 5px;
+  transition: all 0.4s cubic-bezier(0.54, 1.6, 0.5, 1);
+}
+
+.switched #small-switch {
+  border-color: #1C3958 !important;
+  background: #1C3958 !important;
+}
+
+.switched #small-circle {
+  margin-left: 5px;
+  background: #e9e5d5;
+}
