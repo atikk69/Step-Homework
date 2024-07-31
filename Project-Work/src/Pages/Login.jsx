@@ -44,7 +44,7 @@ const Login = () => {
     console.log(`Email: ${email}`);
     console.log(`Password: ${password}`);
     
-    navigate("/catalog");
+    navigate("/home");
   };
 
   return (

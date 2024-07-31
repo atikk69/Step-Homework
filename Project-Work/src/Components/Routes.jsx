@@ -5,6 +5,7 @@ import Catalog from "../Pages/Catalog";
 import About from "../Pages/About";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
+import Cart from "../Pages/Cart";
 
 const authChildren = [
     {
@@ -36,9 +37,14 @@ const appRoutes = [
         element: <About />,
     },
     {
+        path: "cart",
+        element: <Cart/>,
+    },
+    {
         path: "auth",
         children: authChildren,
     },
+
 ]
 
 const app = [

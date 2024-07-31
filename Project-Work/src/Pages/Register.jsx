@@ -1,34 +1,47 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import "../styles/AuthComponent.css";
 import { Link, useNavigate } from 'react-router-dom';
-import User from '../Models/User';
 import { useDispatch, useSelector } from 'react-redux';
 import { validateInputs, selectAuth } from '../Store/authSlice';
 
 const Register = () => {
-  const user = useRef(new User());
-  const confirm_password = useRef();
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
   const dispatch = useDispatch();
   const { errors } = useSelector(selectAuth);
   const navigate = useNavigate();
 
-  const outputUser = (e) => {
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const isValid = dispatch(validateInputs({
-      name: user.current.name.value,
-      email: user.current.email.value,
-      password: user.current.password.value,
-      confirmPassword: confirm_password.current.value
-    }));
-    
-    if (isValid) {
-      console.log(`Name: ${user.current.name.value}`);
-      console.log(`Email: ${user.current.email.value}`);
-      console.log(`Password: ${user.current.password.value}`);
-      console.log(`Confirm Password: ${confirm_password.current.value}`);
-      
-      navigate("/catalog");
+
+    const { name, email, password, confirmPassword } = user;
+
+    dispatch(validateInputs({ name, email, password, confirmPassword }));
+
+    // Check if there are any errors
+    const hasErrors = Object.values(errors).some(error => error !== '');
+
+    if (hasErrors) {
+      return;
     }
+
+    console.log(`Name: ${name}`);
+    console.log(`Email: ${email}`);
+    console.log(`Password: ${password}`);
+    console.log(`Confirm Password: ${confirmPassword}`);
+
+    // You can dispatch your registration action here
+    // dispatch(registerUser({ name, email, password }));
+
+    navigate("/home");
   };
 
   return (
@@ -39,9 +52,7 @@ const Register = () => {
           <h1 className="text-white font-bold text-4xl font-sans">Simple App</h1>
           <p className="text-white mt-1">The simplest app to use</p>
           <div className="flex justify-center lg:justify-start mt-6">
-            <a
-              className="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2"
-            >
+            <a className="hover:bg-indigo-700 hover:text-white hover:-translate-y-1 transition-all duration-500 bg-white text-indigo-800 mt-4 px-4 py-2 rounded-2xl font-bold mb-2">
               Get Started
             </a>
           </div>
@@ -49,54 +60,52 @@ const Register = () => {
       </div>
       <div className="flex w-full lg:w-1/2 justify-center items-center bg-white space-y-8">
         <div className="w-full px-8 md:px-32 lg:px-24">
-          <div className="bg-white rounded-md shadow-2xl p-5">
+          <form onSubmit={handleSubmit} className="bg-white rounded-md shadow-2xl p-5">
             <h1 className="text-gray-800 font-bold text-2xl mb-1">Create Account</h1>
             <p className="text-sm font-normal text-gray-600 mb-8">Join us today</p>
-            <form onSubmit={outputUser}>
-              <div className="flex flex-col mb-8">
-                <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg>
-                  <input ref={(el) => (user.current.name = el)} id="name" className="pl-2 w-full outline-none border-none" type="text" name="name" placeholder="Full Name" />
-                </div>
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+            <div className="flex flex-col mb-8">
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+                <input id="name" name="name" value={user.name} onChange={handleChange} className="pl-2 w-full outline-none border-none" type="text" placeholder="Full Name" />
               </div>
-              <div className="flex flex-col mb-8">
-                <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
-                  </svg>
-                  <input ref={(el) => (user.current.email = el)} id="email" className="pl-2 w-full outline-none border-none" type="email" name="email" placeholder="Email Address" />
-                </div>
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+            </div>
+            <div className="flex flex-col mb-8">
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                </svg>
+                <input id="email" name="email" value={user.email} onChange={handleChange} className="pl-2 w-full outline-none border-none" type="email" placeholder="Email Address" />
               </div>
-              <div className="flex flex-col mb-8">
-                <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                  </svg>
-                  <input ref={(el) => (user.current.password = el)} className="pl-2 w-full outline-none border-none" type="password" name="password" id="password" placeholder="Password" />
-                </div>
-                {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
+            <div className="flex flex-col mb-8">
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                <input id="password" name="password" value={user.password} onChange={handleChange} className="pl-2 w-full outline-none border-none" type="password" placeholder="Password" />
               </div>
-              <div className="flex flex-col mb-12">
-                <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                  </svg>
-                  <input ref={confirm_password} className="pl-2 w-full outline-none border-none" type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" />
-                </div>
-                {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+              {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+            </div>
+            <div className="flex flex-col mb-12">
+              <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                <input id="confirmPassword" name="confirmPassword" value={user.confirmPassword} onChange={handleChange} className="pl-2 w-full outline-none border-none" type="password" placeholder="Confirm Password" />
               </div>
-              <button type="submit" className="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">
-                Register
-              </button>
-            </form>
+              {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+            </div>
+            <button type="submit" className="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">
+              Register
+            </button>
             <div className="flex justify-between mt-4">
               <Link to={"/auth/login"} className="text-sm ml-2 hover:text-blue-500 cursor-pointer hover:-translate-y-1 duration-500 transition-all">Already have an account?</Link>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

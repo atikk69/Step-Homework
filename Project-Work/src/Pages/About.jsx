@@ -1,7 +1,8 @@
 import React from 'react'
+import FeaturesSection from '../Components/FeaturesSection'
 
 export default function About() {
   return (
-    <div>About</div>
+    <div><FeaturesSection/></div>
   )
 }

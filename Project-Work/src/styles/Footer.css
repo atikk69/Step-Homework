@@ -1,0 +1,141 @@
+/* Footer.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-content {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .footer-title {
+    font-size: 2rem;
+    color: #343a40;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-subtitle {
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .icon {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    animation: wave 4s ease-in-out infinite;
+    transition: transform 0.3s ease, background-image 0.3s ease;
+  }
+  
+  .icon::before {
+    content: "";
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    width: 2px;
+    height: 200px;
+    background-color: #fff;
+    transform: translateX(-50%);
+    z-index: -1;
+  }
+  
+  .icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .instagram {
+    background-image: url("https://cdn-icons-png.freepik.com/512/2111/2111463.png?ga=GA1.1.2025074602.1718813500");
+    animation-delay: 1s;
+  }
+  
+  .x {
+    background-image: url("https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?t=st=1720022408~exp=1720023008~hmac=4fe274d9aaff4ab640fb81d9b4b3ff00cf8c80c719f4ff3c8ef0454de9140c53");
+    animation-delay: 1.5s;
+  }
+  
+  .codepen {
+    background-image: url("https://www.iconbolt.com/iconsets/phosphor-regular/codepen-logo.svg");
+    background-color: white;
+    animation-delay: 2s;
+  }
+  
+  .linkedin {
+    background-image: url("https://cdn-icons-png.freepik.com/512/145/145807.png?ga=GA1.1.2025074602.1718813500");
+    animation-delay: 2.5s;
+  }
+  
+  .github {
+    background-image: url("https://cdn-icons-png.freepik.com/512/11376/11376339.png?ga=GA1.1.2025074602.1718813500");
+    animation-delay: 3s;
+  }
+  
+  @keyframes wave {
+    0%, 100% {
+      transform: translate(0);
+    }
+    25% {
+      transform: translateY(-10px);
+    }
+    50% {
+      transform: translateY(5px);
+    }
+    75% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .footer-bottom {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .footer-bottom-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .footer-bottom hr {
+    margin: 1rem 0;
+    border-color: #dee2e6;
+  }
+  
+  .footer-copyright {
+    font-size: 0.875rem;
+    color: #6c757d;
+  }
+  
+  .footer-copyright a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .footer-copyright a:hover {
+    text-decoration: underline;
+  }
+  
