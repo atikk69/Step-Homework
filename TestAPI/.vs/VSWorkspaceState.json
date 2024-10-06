@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\WebAPI",
+    "\\WebAPI\\Controllers",
+    "\\WebAPI\\Services",
+    "\\WebAPI\\Services\\Classes",
+    "\\WebAPI\\Services\\Interfaces"
+  ],
+  "SelectedNode": "\\WebAPI\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}
